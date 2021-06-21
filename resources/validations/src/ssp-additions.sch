@@ -16,7 +16,6 @@
         prefix="fedramp"
         uri="https://fedramp.gov/ns/oscal" />
 
-    <!--pattern from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/attachments-general.sch-->
     <sch:pattern>
 
         <sch:title>Basic resource constraints</sch:title>
@@ -80,8 +79,8 @@
                 test="$WARNING and @media-type">the &lt;<sch:name/>&gt; element SHOULD have a media-type attribute</sch:assert>-->
         </sch:rule>
     </sch:pattern>
-    <!--pattern from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/attachments-base64.sch-->
     <sch:pattern>
+        <sch:title>base64 attachments</sch:title>
         <sch:rule
             context="oscal:back-matter/oscal:resource">
             <sch:assert
@@ -127,61 +126,60 @@
             <!-- FYI: http://expath.org/spec/binary#decode-string handles base64 but Saxon-PE or higher is necessary -->
         </sch:rule>
     </sch:pattern>
-    <!--pattern from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/attachments-specific.sch-->
     <sch:pattern>
         <sch:title>Constraints for specific attachments</sch:title>
         <sch:rule
             context="oscal:back-matter"
             see="https://github.com/18F/fedramp-automation/blob/master/documents/Guide_to_OSCAL-based_FedRAMP_System_Security_Plans_(SSP).pdf">
             <sch:assert
-                id="lacks-fedramp-acronyms"
+                id="has-fedramp-acronyms"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'fedramp-acronyms']]">A FedRAMP
                 OSCAL SSP must attach the FedRAMP Master Acronym and Glossary.</sch:assert>
             <sch:assert
                 doc:attachment="§15 Attachment 12"
-                id="lacks-fedramp-citations"
+                id="has-fedramp-citations"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'fedramp-citations']]">A FedRAMP
                 OSCAL SSP must attach the FedRAMP Applicable Laws and Regulations.</sch:assert>
             <sch:assert
-                id="lacks-fedramp-logo"
+                id="has-fedramp-logo"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'fedramp-logo']]">A FedRAMP OSCAL
                 SSP must attach the FedRAMP Logo.</sch:assert>
             <sch:assert
                 doc:attachment="§15 Attachment 2"
-                id="lacks-user-guide"
+                id="has-user-guide"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'user-guide']]">A FedRAMP OSCAL
                 SSP must attach a User Guide.</sch:assert>
-                        <sch:assert
+            <sch:assert
                 doc:attachment="§15 Attachment 5"
-                id="lacks-rules-of-behavior"
+                id="has-rules-of-behavior"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'rules-of-behavior']]">A FedRAMP
                 OSCAL SSP must attach Rules of Behavior.</sch:assert>
             <sch:assert
                 doc:attachment="§15 Attachment 6"
-                id="lacks-information-system-contingency-plan"
+                id="has-information-system-contingency-plan"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'information-system-contingency-plan']]">
                 A FedRAMP OSCAL SSP must attach a Contingency Plan</sch:assert>
             <sch:assert
                 doc:attachment="§15 Attachment 7"
-                id="lacks-configuration-management-plan"
+                id="has-configuration-management-plan"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'configuration-management-plan']]">
                 A FedRAMP OSCAL SSP must attach a Configuration Management Plan.</sch:assert>
             <sch:assert
                 doc:attachment="§15 Attachment 8"
-                id="lacks-incident-response-plan"
+                id="has-incident-response-plan"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'incident-response-plan']]"> A
                 FedRAMP OSCAL SSP must attach an Incident Response Plan.</sch:assert>
             <sch:assert
                 doc:attachment="§15 Attachment 11"
-                id="lacks-separation-of-duties-matrix"
+                id="has-separation-of-duties-matrix"
                 role="error"
                 test="oscal:resource[oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'type' and @value = 'separation-of-duties-matrix']]">
                 A FedRAMP OSCAL SSP must attach a Separation of Duties Matrix.</sch:assert>
@@ -189,7 +187,7 @@
     </sch:pattern>
 
     <sch:pattern>
-        <!--pattern from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/policy-and-procedure.sch-->
+        <sch:title>Policy and Procedure attachments</sch:title>
         <sch:title>A FedRAMP SSP must incorporate one policy document and one procedure document for each of the 17 NIST SP 800-54r4 control
             families</sch:title>
 
@@ -294,7 +292,6 @@
         </sch:rule>
 
     </sch:pattern>
-    <!--pattern from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/privacy-attachments.sch-->
     <sch:pattern>
 
         <sch:title>A FedRAMP OSCAL SSP must specify a Privacy Point of Contact</sch:title>
@@ -425,7 +422,6 @@
 
         </sch:rule>
     </sch:pattern>
-    <!--pattern from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/system-inventory.sch-->
     <sch:pattern>
 
         <sch:let
@@ -806,7 +802,6 @@
 
         </sch:rule>
     </sch:pattern>
-    <!--pattern from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/misc.sch-->
     <sch:pattern>
 
         <sch:rule
@@ -890,8 +885,12 @@
 
     </sch:pattern>
     <sch:diagnostics>
-        <!--diagnostics from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/attachments-general.sch -->
-        <!--diagnostics from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/attachments-base64.sch -->
+
+        <sch:diagnostic
+            id="context-diagnostic">XPath: The context for this error is <sch:value-of
+                select="replace(path(), 'Q\{[^\}]+\}', '')" />
+        </sch:diagnostic>
+
         <sch:diagnostic
             doc:assertion="resource-has-base64"
             id="resource-has-base64-diagnostic"
@@ -921,15 +920,6 @@
             id="base64-has-content-diagnostic"
             xmlns="http://csrc.nist.gov/ns/oscal/1.0"><sch:value-of
                 select="name()" /> must have content.</sch:diagnostic>
-        <!--diagnostics from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/attachments-specific.sch -->
-        <!--diagnostics from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/policy-and-procedure.sch -->
-        <!--diagnostics from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/privacy-attachments.sch -->
-        <!--diagnostics from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/system-inventory.sch -->
-
-        <!--<sch:diagnostic
-            id="XPath-diagnostic">XPath: The context for this error is <sch:value-of
-                select="replace(path(), 'Q\{[^\}]+\}', '')" />
-        </sch:diagnostic>-->
 
         <sch:diagnostic
             doc:assertion="has-inventory-items"
@@ -1172,6 +1162,5 @@
             <sch:value-of
                 select="name()" /> must have only one asset-type property.</sch:diagnostic>
 
-        <!--diagnostics from file:/Users/gapinski/Projects/github/18F/fedramp-automation/resources/validations/src/ssp/misc.sch -->
     </sch:diagnostics>
 </sch:schema>
