@@ -129,6 +129,42 @@
             </x:scenario>
 
             <x:scenario
+                label="when the media-type attribute">
+
+                <x:scenario
+                    label="has an allowed value">
+                    <x:context>
+                        <back-matter
+                            xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                            <resource>
+                                <rlink
+                                    media-type="text/plain">stuff</rlink>
+                            </resource>
+                        </back-matter>
+                    </x:context>
+                    <x:expect-not-assert
+                        id="has-allowed-media-type"
+                        label="that is correct" />
+                </x:scenario>
+                <x:scenario
+                    label="lacks an allowed value">
+                    <x:context>
+                        <back-matter
+                            xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                            <resource>
+                                <rlink
+                                    media-type="text/text">stuff</rlink>
+                            </resource>
+                        </back-matter>
+                    </x:context>
+                    <x:expect-assert
+                        id="has-allowed-media-type"
+                        label="that is an error" />
+                </x:scenario>
+
+            </x:scenario>
+
+            <x:scenario
                 label="when the base64 element">
 
                 <x:context>
@@ -138,7 +174,7 @@
                             <resource>
                                 <base64
                                     filename="filename.xml"
-                                    media-type="text/xml">stuff</base64>
+                                    media-type="text/plain">stuff</base64>
                             </resource>
                         </back-matter>
                     </system-security-plan>
@@ -191,7 +227,7 @@
                             <resource>
                                 <base64
                                     filename="filename.xml"
-                                    media-type="text/xml">stuff</base64>
+                                    media-type="text/plain">stuff</base64>
                             </resource>
                         </back-matter>
                     </system-security-plan>
@@ -206,7 +242,7 @@
                                 <resource>
                                     <!--<base64
                                     filename="filename.xml"
-                                    media-type="text/xml">stuff</base64>-->
+                                    media-type="text/plain">stuff</base64>-->
                                 </resource>
                             </back-matter>
                         </system-security-plan>
@@ -225,10 +261,10 @@
                                 <resource>
                                     <base64
                                         filename="filename.xml"
-                                        media-type="text/xml">stuff</base64>
+                                        media-type="text/plain">stuff</base64>
                                     <base64
                                         filename="filename.xml"
-                                        media-type="text/xml">stuff</base64>
+                                        media-type="text/plain">stuff</base64>
                                 </resource>
                             </back-matter>
                         </system-security-plan>
@@ -246,7 +282,7 @@
                             <back-matter>
                                 <resource>
                                     <base64
-                                        media-type="text/xml">stuff</base64>
+                                        media-type="text/plain">stuff</base64>
                                 </resource>
                             </back-matter>
                         </system-security-plan>
@@ -283,7 +319,7 @@
                                 <resource>
                                     <base64
                                         filename="filename.xml"
-                                        media-type="text/xml" />
+                                        media-type="text/plain" />
                                 </resource>
                             </back-matter>
                         </system-security-plan>
@@ -1796,7 +1832,7 @@
     </x:scenario>
 
     <x:scenario
-        label="FedRAMP OSCAL SSP FIPS 199:">
+        label="FIPS 199:">
 
         <x:scenario
             label="when a system-characteristics">
@@ -1983,7 +2019,6 @@
         </x:scenario>
 
     </x:scenario>
-
     <x:pending>
         <x:label>Pending until all XSpec tests are correct</x:label>
         <x:scenario

@@ -78,6 +78,26 @@
                 role="warning"
                 test="$WARNING and @media-type">the &lt;<sch:name/>&gt; element SHOULD have a media-type attribute</sch:assert>-->
         </sch:rule>
+
+        <sch:rule
+            context="@media-type"
+            role="error">
+
+            <sch:let
+                name="media-types"
+                value="doc('file:../../xml/fedramp_values.xml')//fedramp:value-set[@name = 'media-type']//fedramp:enum/@value" />
+            <sch:report
+                role="information"
+                test="false()">There are <sch:value-of
+                    select="count($media-types)" /> media types.</sch:report>
+            <sch:assert
+                diagnostics="has-allowed-media-type-diagnostic"
+                id="has-allowed-media-type"
+                role="error"
+                test="current() = $media-types">A media-type attribute must have an allowed value.</sch:assert>
+
+        </sch:rule>
+
     </sch:pattern>
     <sch:pattern>
         <sch:title>base64 attachments</sch:title>
@@ -121,7 +141,7 @@
                 diagnostics="base64-has-content-diagnostic "
                 id="base64-has-content"
                 role="error"
-                test="normalize-space() != ''">A base64 element has content.</sch:assert>
+                test="matches(normalize-space(), '^[A-Za-z0-9+/]+$')">A base64 element has content.</sch:assert>
             <doc:original-assertion>base64 element must have text content.</doc:original-assertion>
             <!-- FYI: http://expath.org/spec/binary#decode-string handles base64 but Saxon-PE or higher is necessary -->
         </sch:rule>
@@ -969,6 +989,12 @@
             id="context-diagnostic">XPath: The context for this error is <sch:value-of
                 select="replace(path(), 'Q\{[^\}]+\}', '')" />
         </sch:diagnostic>
+
+        <sch:diagnostic
+            id="has-allowed-media-type-diagnostic">This <sch:value-of
+                select="name(parent::node())" /> element has a media-type="<sch:value-of
+                select="current()" />" which is not in the list of allowed media types. Allowed media types are <sch:value-of
+                select="string-join($media-types, ' ∨ ')" />.</sch:diagnostic>
 
         <sch:diagnostic
             doc:assertion="resource-has-base64"
