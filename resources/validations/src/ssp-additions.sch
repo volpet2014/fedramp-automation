@@ -188,7 +188,7 @@
 
     <sch:pattern>
         <sch:title>Policy and Procedure attachments</sch:title>
-        <sch:title>A FedRAMP SSP must incorporate one policy document and one procedure document for each of the 17 NIST SP 800-54r4 control
+        <sch:title>A FedRAMP SSP must incorporate one policy document and one procedure document for each of the 17 NIST SP 800-54 Revision 4 control
             families</sch:title>
 
         <!-- TODO: handle attachments declared by component (see implemented-requirement ac-1 for an example) -->
