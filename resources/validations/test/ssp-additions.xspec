@@ -1795,6 +1795,195 @@
         </x:scenario>
     </x:scenario>
 
+    <x:scenario
+        label="FedRAMP OSCAL SSP FIPS 199:">
+
+        <x:scenario
+            label="when a system-characteristics">
+            <x:scenario
+                label="has security-sensitivity-level">
+                <x:context>
+                    <system-characteristics
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:security-sensitivity-level>Moderate</oscal:security-sensitivity-level>
+                    </system-characteristics>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-security-sensitivity-level"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks security-sensitivity-level">
+                <x:context>
+                    <system-characteristics
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-security-sensitivity-level>Moderate</oscal:not-a-security-sensitivity-level>
+                    </system-characteristics>
+                </x:context>
+                <x:expect-assert
+                    id="has-security-sensitivity-level"
+                    label="that is an error" />
+            </x:scenario>
+        </x:scenario>
+
+        <x:scenario
+            label="when a system-characteristics">
+            <x:scenario
+                label="has security-impact-level">
+                <x:context>
+                    <system-characteristics
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:security-impact-level />
+                    </system-characteristics>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-security-impact-level"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks security-impact-level">
+                <x:context>
+                    <system-characteristics
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-security-impact-level />
+                    </system-characteristics>
+                </x:context>
+                <x:expect-assert
+                    id="has-security-impact-level"
+                    label="that is an error" />
+            </x:scenario>
+        </x:scenario>
+
+        <x:scenario
+            label="when a security-sensitivity-level">
+            <x:scenario
+                label="has an allowed value">
+                <x:context>
+                    <system-characteristics
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:security-sensitivity-level>Moderate</oscal:security-sensitivity-level>
+                    </system-characteristics>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-allowed-security-sensitivity-level"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks an allowed value">
+                <x:context>
+                    <system-characteristics
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:security-sensitivity-level>Severe</oscal:security-sensitivity-level>
+                    </system-characteristics>
+                </x:context>
+                <x:expect-assert
+                    id="has-allowed-security-sensitivity-level"
+                    label="that is an error" />
+            </x:scenario>
+        </x:scenario>
+
+        <x:scenario
+            label="when a security-impact-level">
+            <x:scenario
+                label="has a security-objective-confidentiality">
+                <x:context>
+                    <security-impact-level
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:security-objective-confidentiality>Moderate</oscal:security-objective-confidentiality>
+                    </security-impact-level>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-security-objective-confidentiality"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks a security-objective-confidentiality">
+                <x:context>
+                    <security-impact-level
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-asecurity-objective-confidentiality>Moderate</oscal:not-asecurity-objective-confidentiality>
+                    </security-impact-level>
+                </x:context>
+                <x:expect-assert
+                    id="has-security-objective-confidentiality"
+                    label="that is an error" />
+            </x:scenario>
+            <x:scenario
+                label="has a security-objective-integrity">
+                <x:context>
+                    <security-impact-level
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:security-objective-integrity>Moderate</oscal:security-objective-integrity>
+                    </security-impact-level>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-security-objective-integrity"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks a security-objective-integrity">
+                <x:context>
+                    <security-impact-level
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-asecurity-objective-integrity>Moderate</oscal:not-asecurity-objective-integrity>
+                    </security-impact-level>
+                </x:context>
+                <x:expect-assert
+                    id="has-security-objective-integrity"
+                    label="that is an error" />
+            </x:scenario>
+            <x:scenario
+                label="has a security-objective-availability">
+                <x:context>
+                    <security-impact-level
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:security-objective-availability>Moderate</oscal:security-objective-availability>
+                    </security-impact-level>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-security-objective-availability"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks a security-objective-availability">
+                <x:context>
+                    <security-impact-level
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-asecurity-objective-availability>Moderate</oscal:not-asecurity-objective-availability>
+                    </security-impact-level>
+                </x:context>
+                <x:expect-assert
+                    id="has-security-objective-availability"
+                    label="that is an error" />
+            </x:scenario>
+        </x:scenario>
+
+        <x:scenario
+            label="when a security-objective">
+            <x:scenario
+                label="has an allowed security objective value">
+                <x:context>
+                    <security-objective-availability
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">Moderate</security-objective-availability>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-allowed-security-objective-value"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks an allowed security objective value">
+                <x:context>
+                    <security-objective-availability
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">Severe</security-objective-availability>
+                </x:context>
+                <x:expect-assert
+                    id="has-allowed-security-objective-value"
+                    label="that is an error" />
+            </x:scenario>
+        </x:scenario>
+
+    </x:scenario>
+
     <x:pending>
         <x:label>Pending until all XSpec tests are correct</x:label>
         <x:scenario

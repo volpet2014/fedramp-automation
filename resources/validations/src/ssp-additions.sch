@@ -422,6 +422,94 @@
 
         </sch:rule>
     </sch:pattern>
+
+    <sch:pattern
+        see="https://github.com/18F/fedramp-automation/blob/master/documents/Guide_to_OSCAL-based_FedRAMP_System_Security_Plans_(SSP).pdf page 12">
+
+        <sch:title>Security Objectives Categorization (FIPS 199)</sch:title>
+
+        <sch:rule
+            context="oscal:system-characteristics">
+
+            <!-- These should also be asserted in XML Schema -->
+
+            <sch:assert
+                id="has-security-sensitivity-level"
+                role="error"
+                test="oscal:security-sensitivity-level">A FedRAMP OSCAL SSP must specify a FIPS 199 categorization.</sch:assert>
+
+            <sch:assert
+                id="has-security-impact-level"
+                role="error"
+                test="oscal:security-impact-level">A FedRAMP OSCAL SSP must specify a security impact level.</sch:assert>
+
+        </sch:rule>
+
+        <sch:rule
+            context="oscal:security-sensitivity-level">
+
+            <!--<sch:let
+                name="security-sensitivity-levels"
+                value="doc('file:../../xml/fedramp_values.xml')//fedramp:value-set[@name = 'security-sensitivity-level']//fedramp:enum/@value" />-->
+            <sch:let
+                name="security-sensitivity-levels"
+                value="('Low', 'Moderate', 'High')" />
+
+            <sch:assert
+                diagnostics="has-allowed-security-sensitivity-level-diagnostic"
+                id="has-allowed-security-sensitivity-level"
+                role="error"
+                test="current() = $security-sensitivity-levels">A FedRAMP OSCAL SSP must specify an allowed security-sensitivity-level.</sch:assert>
+
+        </sch:rule>
+
+        <sch:rule
+            context="oscal:security-impact-level">
+
+            <!-- These should also be asserted in XML Schema -->
+
+            <sch:assert
+                id="has-security-objective-confidentiality"
+                role="error"
+                test="oscal:security-objective-confidentiality">A FedRAMP OSCAL SSP must specify a confidentiality security objective.</sch:assert>
+
+            <sch:assert
+                id="has-security-objective-integrity"
+                role="error"
+                test="oscal:security-objective-integrity">A FedRAMP OSCAL SSP must specify an integrity security objective.</sch:assert>
+
+            <sch:assert
+                id="has-security-objective-availability"
+                role="error"
+                test="oscal:security-objective-availability">A FedRAMP OSCAL SSP must specify an availability security objective.</sch:assert>
+
+
+        </sch:rule>
+
+        <sch:rule
+            context="oscal:security-objective-confidentiality | oscal:security-objective-integrity | oscal:security-objective-availability">
+
+            <!--<sch:let
+                name="security-objective-levels"
+                value="doc('file:../../xml/fedramp_values.xml')//fedramp:value-set[@name = 'security-objective-level']//fedramp:enum/@value" />-->
+            <sch:let
+                name="security-objective-levels"
+                value="('Low', 'Moderate', 'High')" />
+            <sch:report
+                role="information"
+                test="false()">There are <sch:value-of
+                    select="count($security-objective-levels)" /> security-objective-levels: <sch:value-of
+                    select="string-join($security-objective-levels, ' ∨ ')" /></sch:report>
+
+            <sch:assert
+                diagnostics="has-allowed-security-objective-value-diagnostic"
+                id="has-allowed-security-objective-value"
+                role="error"
+                test="current() = $security-objective-levels">A FedRAMP OSCAL SSP must specify an allowed security objective value.</sch:assert>
+
+        </sch:rule>
+    </sch:pattern>
+
     <sch:pattern>
 
         <sch:let
@@ -855,15 +943,6 @@
                 test="oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'authorization-type' and @value = ('fedramp-jab', 'fedramp-agency', 'fedramp-li-saas')]">Missing
                 FedRAMP authorization type</sch:assert>
 
-            <sch:let
-                name="security-sensitivity-levels"
-                value="doc('../../xml/fedramp-values.xml')//fedramp:value-set[@name = 'security-sensitivity-level']//fedramp:enum/@value" />
-
-            <sch:assert
-                id="has-security-sensitivity-level"
-                test="oscal:prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'security-sensitivity-level' and @value = $security-sensitivity-levels]">Missing
-                security-sensitivity-level</sch:assert>
-
         </sch:rule>
 
         <sch:rule
@@ -920,6 +999,39 @@
             id="base64-has-content-diagnostic"
             xmlns="http://csrc.nist.gov/ns/oscal/1.0"><sch:value-of
                 select="name()" /> must have content.</sch:diagnostic>
+
+        <sch:diagnostic
+            id="has-allowed-security-sensitivity-level-diagnostic">Invalid <sch:value-of
+                select="name()" /> "<sch:value-of
+                select="." />". It must have one of the following <sch:value-of
+                select="count($security-sensitivity-levels)" /> values: <sch:value-of
+                select="string-join($security-sensitivity-levels, ' ∨ ')" />. </sch:diagnostic>
+        <sch:diagnostic
+            id="has-allowed-security-objective-value-diagnostic">Invalid <sch:value-of
+                select="name()" /> "<sch:value-of
+                select="." />". It must have one of the following <sch:value-of
+                select="count($security-objective-levels)" /> values: <sch:value-of
+                select="string-join($security-objective-levels, ' ∨ ')" />. </sch:diagnostic>
+        <sch:diagnostic
+            doc:assertion="has-security-sensitivity-level"
+            doc:context="oscal:system-characteristics"
+            id="has-security-sensitivity-level-diagnostic">This FedRAMP OSCAL SSP lacks a FIPS 199 categorization.</sch:diagnostic>
+        <sch:diagnostic
+            doc:assertion="has-security-impact-level"
+            doc:context="oscal:system-characteristics"
+            id="has-security-impact-level-diagnostic">This FedRAMP OSCAL SSP lacks a security impact level.</sch:diagnostic>
+        <sch:diagnostic
+            doc:assertion="has-security-objective-confidentiality"
+            doc:context="oscal:security-impact-level"
+            id="has-security-objective-confidentiality-diagnostic">This FedRAMP OSCAL SSP lacks a confidentiality security objective.</sch:diagnostic>
+        <sch:diagnostic
+            doc:assertion="has-security-objective-integrity"
+            doc:context="oscal:security-impact-level"
+            id="has-security-objective-integrity-diagnostic">This FedRAMP OSCAL SSP lacks an integrity security objective.</sch:diagnostic>
+        <sch:diagnostic
+            doc:assertion="has-security-objective-availability"
+            doc:context="oscal:security-impact-level"
+            id="has-security-objective-availability-diagnostic">This FedRAMP OSCAL SSP lacks an availability security objective.</sch:diagnostic>
 
         <sch:diagnostic
             doc:assertion="has-inventory-items"
