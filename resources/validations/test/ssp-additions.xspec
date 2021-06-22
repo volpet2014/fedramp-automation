@@ -2279,6 +2279,31 @@
                     label="that is an error" />
             </x:scenario>
 
+            <x:scenario
+                label="has an allowed information-type-id">
+                <x:context>
+                    <categorization
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <information-type-id>C.2.1.1</information-type-id>
+                    </categorization>
+                </x:context>
+                <x:expect-not-assert
+                    id="has-allowed-information-type-id"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks an allowed information-type-id">
+                <x:context>
+                    <categorization
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <information-type-id>X.2.1.1</information-type-id>
+                    </categorization>
+                </x:context>
+                <x:expect-assert
+                    id="has-allowed-information-type-id"
+                    label="that is an error" />
+            </x:scenario>
+
         </x:scenario>
 
         <x:scenario
