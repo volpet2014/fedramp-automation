@@ -1832,7 +1832,7 @@
     </x:scenario>
 
     <x:scenario
-        label="FIPS 199:">
+        label="FIPS 199 Categorization">
 
         <x:scenario
             label="when a system-characteristics">
@@ -2019,6 +2019,381 @@
         </x:scenario>
 
     </x:scenario>
+
+    <x:scenario
+        label="SP 800-60v2r1 Information Types">
+
+        <x:scenario
+            label="when a system-information">
+            <x:scenario
+                label="has an information-type">
+                <x:context>
+                    <system-information
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:information-type />
+                    </system-information>
+                </x:context>
+                <x:expect-not-assert
+                    id="system-information-has-information-type"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks an information-type">
+                <x:context>
+                    <system-information
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-information-type />
+                    </system-information>
+                </x:context>
+                <x:expect-assert
+                    id="system-information-has-information-type"
+                    label="that is an error" />
+            </x:scenario>
+        </x:scenario>
+
+        <x:scenario
+            label="when an information-type">
+
+            <x:scenario
+                label="has a title">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:title />
+                    </information-type>
+                </x:context>
+                <x:expect-not-assert
+                    id="information-type-has-title"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks title">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-title />
+                    </information-type>
+                </x:context>
+                <x:expect-assert
+                    id="information-type-has-title"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has a description">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:description />
+                    </information-type>
+                </x:context>
+                <x:expect-not-assert
+                    id="information-type-has-description"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks description">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-description />
+                    </information-type>
+                </x:context>
+                <x:expect-assert
+                    id="information-type-has-description"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has a categorization">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:categorization />
+                    </information-type>
+                </x:context>
+                <x:expect-not-assert
+                    id="information-type-has-categorization"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks categorization">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-categorization />
+                    </information-type>
+                </x:context>
+                <x:expect-assert
+                    id="information-type-has-categorization"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has a confidentiality-impact">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:confidentiality-impact />
+                    </information-type>
+                </x:context>
+                <x:expect-not-assert
+                    id="information-type-has-confidentiality-impact"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks confidentiality-impact">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-confidentiality-impact />
+                    </information-type>
+                </x:context>
+                <x:expect-assert
+                    id="information-type-has-confidentiality-impact"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has an integrity-impact">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:integrity-impact />
+                    </information-type>
+                </x:context>
+                <x:expect-not-assert
+                    id="information-type-has-integrity-impact"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks integrity-impact">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-integrity-impact />
+                    </information-type>
+                </x:context>
+                <x:expect-assert
+                    id="information-type-has-integrity-impact"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has an availability-impact">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:availability-impact />
+                    </information-type>
+                </x:context>
+                <x:expect-not-assert
+                    id="information-type-has-availability-impact"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks availability-impact">
+                <x:context>
+                    <information-type
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <oscal:not-a-availability-impact />
+                    </information-type>
+                </x:context>
+                <x:expect-assert
+                    id="information-type-has-availability-impact"
+                    label="that is an error" />
+            </x:scenario>
+
+        </x:scenario>
+
+        <x:scenario
+            label="when a categorization">
+
+            <x:scenario
+                label="has a system attribute">
+                <x:context>
+                    <categorization
+                        system="system"
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0" />
+                </x:context>
+                <x:expect-not-assert
+                    id="categorization-has-system-attribute"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks a system attribute">
+                <x:context>
+                    <categorization
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0" />
+                </x:context>
+                <x:expect-assert
+                    id="categorization-has-system-attribute"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has a correct system attribute">
+                <x:context>
+                    <categorization
+                        system="https://doi.org/10.6028/NIST.SP.800-60v2r1"
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0" />
+                </x:context>
+                <x:expect-not-assert
+                    id="categorization-has-correct-system-attribute"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks a correct system attribute">
+                <x:context>
+                    <categorization
+                        system="https://fedramp.gov/"
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0" />
+                </x:context>
+                <x:expect-assert
+                    id="categorization-has-correct-system-attribute"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has an information-type-id">
+                <x:context>
+                    <categorization
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <information-type-id>C.2.1.1</information-type-id>
+                    </categorization>
+                </x:context>
+                <x:expect-not-assert
+                    id="categorization-has-information-type-id"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks information-type-id">
+                <x:context>
+                    <categorization
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <not-a-information-type-id>C.2.1.1</not-a-information-type-id>
+                    </categorization>
+                </x:context>
+                <x:expect-assert
+                    id="categorization-has-information-type-id"
+                    label="that is an error" />
+            </x:scenario>
+
+        </x:scenario>
+
+        <x:scenario
+            label="when a information-type confidentiality-, integrity-, or availability-impact">
+
+            <x:scenario
+                label="has a base">
+                <x:context>
+                    <availability-impact
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <base>Moderate</base>
+                    </availability-impact>
+                </x:context>
+                <x:expect-not-assert
+                    id="cia-impact-has-base"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks base">
+                <x:context>
+                    <availability-impact
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <not-a-base>Moderate</not-a-base>
+                    </availability-impact>
+                </x:context>
+                <x:expect-assert
+                    id="cia-impact-has-base"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="has a selected">
+                <x:context>
+                    <availability-impact
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <selected>Moderate</selected>
+                    </availability-impact>
+                </x:context>
+                <x:expect-not-assert
+                    id="cia-impact-has-selected"
+                    label="that is correct" />
+            </x:scenario>
+            <x:scenario
+                label="lacks selected">
+                <x:context>
+                    <availability-impact
+                        xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                        <not-a-selected>Moderate</not-a-selected>
+                    </availability-impact>
+                </x:context>
+                <x:expect-assert
+                    id="cia-impact-has-selected"
+                    label="that is an error" />
+            </x:scenario>
+
+            <x:scenario
+                label="base element">
+                <x:scenario
+                    label="has an approved value">
+                    <x:context>
+                        <availability-impact
+                            xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                            <base>fips-199-moderate</base>
+                        </availability-impact>
+                    </x:context>
+                    <x:expect-not-assert
+                        id="cia-impact-has-approved-fips-categorization"
+                        label="that is correct" />
+                </x:scenario>
+                <x:scenario
+                    label="lacks an approved value">
+                    <x:context>
+                        <availability-impact
+                            xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                            <base>fips-199-none</base>
+                        </availability-impact>
+                    </x:context>
+                    <x:expect-assert
+                        id="cia-impact-has-approved-fips-categorization"
+                        label="that is an error" />
+                </x:scenario>
+            </x:scenario>
+
+            <x:scenario
+                label="selected element">
+                <x:scenario
+                    label="has an approved value">
+                    <x:context>
+                        <availability-impact
+                            xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                            <selected>fips-199-moderate</selected>
+                        </availability-impact>
+                    </x:context>
+                    <x:expect-not-assert
+                        id="cia-impact-has-approved-fips-categorization"
+                        label="that is correct" />
+                </x:scenario>
+                <x:scenario
+                    label="lacks an approved value">
+                    <x:context>
+                        <availability-impact
+                            xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+                            <selected>fips-199-none</selected>
+                        </availability-impact>
+                    </x:context>
+                    <x:expect-assert
+                        id="cia-impact-has-approved-fips-categorization"
+                        label="that is an error" />
+                </x:scenario>
+            </x:scenario>
+
+        </x:scenario>
+
+    </x:scenario>
+
     <x:pending>
         <x:label>Pending until all XSpec tests are correct</x:label>
         <x:scenario

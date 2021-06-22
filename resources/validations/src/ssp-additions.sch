@@ -529,6 +529,115 @@
 
         </sch:rule>
     </sch:pattern>
+    
+    <sch:pattern
+        see="https://github.com/18F/fedramp-automation/blob/master/documents/Guide_to_OSCAL-based_FedRAMP_System_Security_Plans_(SSP).pdf page 11">
+        
+        <sch:title>SP 800-60v2r1 Information Types:</sch:title>
+        
+        <sch:rule
+            context="oscal:system-information">
+            
+            <sch:assert
+                id="system-information-has-information-type"
+                role="error"
+                test="oscal:information-type">A FedRAMP OSCAL SSP must specify at least one information-type.</sch:assert>
+            
+        </sch:rule>
+        
+        <sch:rule
+            context="oscal:information-type">
+            
+            <sch:assert
+                id="information-type-has-title"
+                role="error"
+                test="oscal:title">A FedRAMP OSCAL SSP information-type must have a title.</sch:assert>
+            
+            <sch:assert
+                id="information-type-has-description"
+                role="error"
+                test="oscal:description">A FedRAMP OSCAL SSP information-type must have a description.</sch:assert>
+            
+            <sch:assert
+                id="information-type-has-categorization"
+                role="error"
+                test="oscal:categorization">A FedRAMP OSCAL SSP information-type must have at least one categorization.</sch:assert>
+            
+            <sch:assert
+                id="information-type-has-confidentiality-impact"
+                role="error"
+                test="oscal:confidentiality-impact">A FedRAMP OSCAL SSP information-type must have a confidentiality-impact.</sch:assert>
+            
+            <sch:assert
+                id="information-type-has-integrity-impact"
+                role="error"
+                test="oscal:integrity-impact">A FedRAMP OSCAL SSP information-type must have a integrity-impact.</sch:assert>
+            
+            <sch:assert
+                id="information-type-has-availability-impact"
+                role="error"
+                test="oscal:availability-impact">A FedRAMP OSCAL SSP information-type must have a availability-impact.</sch:assert>
+            
+        </sch:rule>
+        
+        <sch:rule
+            context="oscal:categorization">
+            
+            <sch:assert
+                id="categorization-has-system-attribute"
+                role="error"
+                test="@system">A FedRAMP OSCAL SSP information-type categorization must have a system attribute.</sch:assert>
+            
+            <sch:assert
+                id="categorization-has-correct-system-attribute"
+                role="error"
+                test="@system = 'https://doi.org/10.6028/NIST.SP.800-60v2r1'">A FedRAMP OSCAL SSP information-type categorization must have a correct
+                system attribute. The correct value is "https://doi.org/10.6028/NIST.SP.800-60v2r1".</sch:assert>
+            
+            <sch:assert
+                id="categorization-has-information-type-id"
+                role="error"
+                test="oscal:information-type-id">A FedRAMP OSCAL SSP information-type categorization must have at least one
+                information-type-id.</sch:assert>
+            
+            <!-- FIXME: https://github.com/18F/fedramp-automation/blob/master/documents/Guide_to_OSCAL-based_FedRAMP_System_Security_Plans_(SSP).pdf page 11 has schema error -->
+            <!--        confidentiality-impact, integrity-impact, availability-impact are children of <information-type> -->
+            
+            <!-- FIXME: constrain information-type-id values to SP 800-60v2r1 -->
+            
+        </sch:rule>
+        
+        <sch:rule
+            context="oscal:confidentiality-impact | oscal:integrity-impact | oscal:availability-impact">
+            
+            <sch:assert
+                id="cia-impact-has-base"
+                role="error"
+                test="oscal:base">A FedRAMP OSCAL SSP information-type confidentiality-, integrity-, or availability-impact must have a base
+                element.</sch:assert>
+            
+            <sch:assert
+                id="cia-impact-has-selected"
+                role="error"
+                test="oscal:selected">A FedRAMP OSCAL SSP information-type confidentiality-, integrity-, or availability-impact must have a selected
+                element.</sch:assert>
+            
+        </sch:rule>
+        
+        <sch:rule
+            context="oscal:base | oscal:selected">
+            
+            <sch:let
+                name="fips-levels"
+                value="('fips-199-low', 'fips-199-moderate', 'fips-199-high')" />
+            <sch:assert
+                id="cia-impact-has-approved-fips-categorization"
+                role="error"
+                test=". = $fips-levels">A FedRAMP OSCAL SSP information-type confidentiality-, integrity-, or availability-impact base or select
+                element must have an approved value.</sch:assert>
+        </sch:rule>
+        
+    </sch:pattern>
 
     <sch:pattern>
 
