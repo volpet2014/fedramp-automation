@@ -43,9 +43,9 @@
     <xsl:template
         match="/">
         <xsl:processing-instruction name="xml-model"> href="https://raw.githubusercontent.com/usnistgov/OSCAL/release-1.0/xml/schema/oscal_complete_schema.xsd" schematypens="http://www.w3.org/2001/XMLSchema" title="OSCAL complete schema"</xsl:processing-instruction>
-        <!--<xsl:processing-instruction name="xml-model"> href="https://raw.githubusercontent.com/18F/fedramp-automation/master/resources/validations/src/ssp.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>-->
+        <xsl:processing-instruction name="xml-model"> href="https://raw.githubusercontent.com/18F/fedramp-automation/master/resources/validations/src/ssp.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>
         <!--<xsl:processing-instruction name="xml-model"> href="file:/Users/gapinski/branches/fedramp-automation/resources/validations/src/ssp.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>-->
-        <xsl:processing-instruction name="xml-model"> href="file:/Users/gapinski/branches/fedramp-automation/resources/validations/src/ssp-test.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>
+        <!--<xsl:processing-instruction name="xml-model"> href="file:/Users/gapinski/branches/fedramp-automation/resources/validations/src/ssp-test.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>-->
         <xsl:comment expand-text="true">This document used {base-uri()} as input.</xsl:comment>
         <xsl:variable
             as="xs:string"
@@ -752,10 +752,13 @@
                         select="uuid:randomUUID()" />
                     <title>User Guide</title>
                     <rlink
-                        href="SSSP-A2-UG" />
+                        href="SSSP-A2-UG.txt" />
                     <base64
                         filename="SSSP-A2-UG.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('User Guide')" />
+                    </base64>
                 </resource>
                 <resource>
                     <xsl:attribute
@@ -763,10 +766,13 @@
                         select="uuid:randomUUID()" />
                     <title>Privacy Impact Analysis</title>
                     <rlink
-                        href="SSSP-A4-PIA" />
+                        href="SSSP-A4-PIA.txt" />
                     <base64
                         filename="SSSP-A4-PIA.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('Privacy Impact Analysis')" />
+                    </base64>
                 </resource>
                 <resource>
                     <xsl:attribute
@@ -774,10 +780,13 @@
                         select="uuid:randomUUID()" />
                     <title>Rules of Behavior</title>
                     <rlink
-                        href="SSSP-A5-ROB" />
+                        href="SSSP-A5-ROB.txt" />
                     <base64
                         filename="SSSP-A5-ROB.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('Rules of Behavior')" />
+                    </base64>
                 </resource>
                 <resource>
                     <xsl:attribute
@@ -785,10 +794,13 @@
                         select="uuid:randomUUID()" />
                     <title>Information System Contingency Plan</title>
                     <rlink
-                        href="SSSP-A6-ISCP" />
+                        href="SSSP-A6-ISCP.txt" />
                     <base64
                         filename="SSSP-A6-ISCP.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('Information System Contingency Plan')" />
+                    </base64>
                 </resource>
                 <resource>
                     <xsl:attribute
@@ -796,10 +808,13 @@
                         select="uuid:randomUUID()" />
                     <title>Configuration Management Plan</title>
                     <rlink
-                        href="SSSP-A7-CMP" />
+                        href="SSSP-A7-CMP.txt" />
                     <base64
                         filename="SSSP-A7-CMP.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('Configuration Management Plan')" />
+                    </base64>
                 </resource>
                 <resource>
                     <xsl:attribute
@@ -807,10 +822,13 @@
                         select="uuid:randomUUID()" />
                     <title>Incident Response Plan</title>
                     <rlink
-                        href="SSSP-A8-IRP" />
+                        href="SSSP-A8-IRP.txt" />
                     <base64
                         filename="SSSP-A8-IRP.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('Incident Response Plan')" />
+                    </base64>
                 </resource>
                 <resource>
                     <xsl:attribute
@@ -818,10 +836,13 @@
                         select="uuid:randomUUID()" />
                     <title>CIS Workbook</title>
                     <rlink
-                        href="SSSP-A9-CIS-Workbook" />
+                        href="SSSP-A9-CIS-Workbook.txt" />
                     <base64
                         filename="SSSP-A9-CIS-Workbook.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('CIS Workbook')" />
+                    </base64>
                 </resource>
                 <resource>
                     <xsl:attribute
@@ -829,10 +850,13 @@
                         select="uuid:randomUUID()" />
                     <title>Inventory</title>
                     <rlink
-                        href="SSSP-A13-INV" />
+                        href="SSSP-A13-INV.txt" />
                     <base64
                         filename="SSSP-A13-INV.txt"
-                        media-type="text/plain" />
+                        media-type="text/plain">
+                        <xsl:value-of
+                            select="expath:encode-string('Inventory')" />
+                    </base64>
                 </resource>
             </back-matter>
         </system-security-plan>
