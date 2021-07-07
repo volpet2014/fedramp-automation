@@ -23,6 +23,10 @@
         method="xml" />
     <xsl:variable
         as="xs:string"
+        name="user-uuid"
+        select="uuid:randomUUID()" />
+    <xsl:variable
+        as="xs:string"
         name="component-uuid"
         select="uuid:randomUUID()" />
     <xsl:variable
@@ -39,12 +43,20 @@
     <xsl:template
         match="/">
         <xsl:processing-instruction name="xml-model"> href="https://raw.githubusercontent.com/usnistgov/OSCAL/release-1.0/xml/schema/oscal_complete_schema.xsd" schematypens="http://www.w3.org/2001/XMLSchema" title="OSCAL complete schema"</xsl:processing-instruction>
-        <xsl:processing-instruction name="xml-model"> href="https://raw.githubusercontent.com/18F/fedramp-automation/master/resources/validations/src/ssp.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>
+        <!--<xsl:processing-instruction name="xml-model"> href="https://raw.githubusercontent.com/18F/fedramp-automation/master/resources/validations/src/ssp.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>-->
+        <!--<xsl:processing-instruction name="xml-model"> href="file:/Users/gapinski/branches/fedramp-automation/resources/validations/src/ssp.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>-->
+        <xsl:processing-instruction name="xml-model"> href="file:/Users/gapinski/branches/fedramp-automation/resources/validations/src/ssp-test.sch" schematypens="http://purl.oclc.org/dsdl/schematron" title="FedRAMP SSP constraints"</xsl:processing-instruction>
+        <xsl:comment expand-text="true">This document used {base-uri()} as input.</xsl:comment>
+        <xsl:variable
+            as="xs:string"
+            name="control-role">implemented-requirement-responsible-role</xsl:variable>
         <system-security-plan
             xmlns="http://csrc.nist.gov/ns/oscal/1.0">
+
             <xsl:attribute
                 name="uuid"
                 select="uuid:randomUUID()" />
+
             <metadata>
                 <title>
                     <xsl:text>DRAFT, SAMPLE </xsl:text>
@@ -57,6 +69,347 @@
                 </last-modified>
                 <version>0.1</version>
                 <oscal-version>1.0.0</oscal-version>
+
+                <!-- roles -->
+                <!-- ISO -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 14</xsl:comment>
+                <role
+                    id="system-owner">
+                    <title>Information System Owner</title>
+                    <short-name>ISO</short-name>
+                </role>
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 15</xsl:comment>
+                <role
+                    id="authorizing-official">
+                    <title>Authorizing Official</title>
+                    <short-name>AO</short-name>
+                </role>
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 16</xsl:comment>
+                <role
+                    id="system-poc-management">
+                    <title>Information System Management Point of Contact</title>
+                    <short-name>ISMPoC</short-name>
+                </role>
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 17</xsl:comment>
+                <role
+                    id="system-poc-technical">
+                    <title>Information System Technical Point of Contact</title>
+                    <short-name>ISTPoC</short-name>
+                </role>
+                <role
+                    id="system-poc-other">
+                    <title>Information System Other Point of Contact</title>
+                    <short-name>ISOPoC</short-name>
+                </role>
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 18</xsl:comment>
+                <role
+                    id="information-system-security-officer">
+                    <title>Information System Security Officer</title>
+                    <short-name>ISSO</short-name>
+                </role>
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 19</xsl:comment>
+                <role
+                    id="authorizing-official-poc">
+                    <title>Authorizing Official (AO) PoC</title>
+                    <short-name>AOPoC</short-name>
+                </role>
+
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 36</xsl:comment>
+                <role
+                    id="{$control-role}">
+                    <title>Implemented Control Responsibility Role</title>
+                </role>
+
+                <!-- location(s) -->
+                <xsl:variable
+                    as="xs:string"
+                    name="location-uuid"
+                    select="uuid:randomUUID()" />
+                <location
+                    uuid="{$location-uuid}">
+                    <address />
+                </location>
+
+                <!-- organization(s) -->
+                <!-- CSP -->
+                <xsl:variable
+                    as="xs:string"
+                    name="csp-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="organization"
+                    uuid="{$csp-uuid}">
+                    <name>Cloud Service Provider (CSP) Name</name>
+                </party>
+
+                <!-- parties -->
+                <!-- ISO -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 14</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="ISO-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$ISO-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+                <!-- AO -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 15</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="AO-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$AO-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+                <!-- ISMPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 16</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="ISMPoC-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$ISMPoC-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+                <!-- ISTPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 17</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="ISTPoC-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$ISTPoC-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+                <!-- ISOPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 17</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="ISOPoC-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$ISOPoC-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+                <!-- ISSO -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 18</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="ISSO-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$ISSO-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+                <!-- AOPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 19</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="AOPoC-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$AOPoC-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+
+                <!-- irrr -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 36</xsl:comment>
+                <xsl:variable
+                    as="xs:string"
+                    name="irrr-uuid"
+                    select="uuid:randomUUID()" />
+                <party
+                    type="person"
+                    uuid="">
+                    <xsl:attribute
+                        name="uuid"
+                        select="$irrr-uuid" />
+                    <name>name</name>
+                    <email-address>name@example.com</email-address>
+                    <telephone-number>+1-303-499-7111</telephone-number>
+                    <location-uuid>
+                        <xsl:value-of
+                            select="$location-uuid" />
+                    </location-uuid>
+                    <member-of-organization>
+                        <xsl:value-of
+                            select="$csp-uuid" />
+                    </member-of-organization>
+                </party>
+
+                <!-- ISO -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 14</xsl:comment>
+                <responsible-party
+                    role-id="system-owner">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$ISO-uuid" />
+                    </party-uuid>
+                </responsible-party>
+                <!-- AO -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 15</xsl:comment>
+                <responsible-party
+                    role-id="authorizing-official">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$AO-uuid" />
+                    </party-uuid>
+                </responsible-party>
+                <!-- ISMPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 16</xsl:comment>
+                <responsible-party
+                    role-id="system-poc-management">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$ISMPoC-uuid" />
+                    </party-uuid>
+                </responsible-party>
+                <!-- ISTPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 17</xsl:comment>
+                <responsible-party
+                    role-id="system-poc-technical">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$ISTPoC-uuid" />
+                    </party-uuid>
+                </responsible-party>
+                <!-- ISOPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 17</xsl:comment>
+                <responsible-party
+                    role-id="system-poc-other">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$ISOPoC-uuid" />
+                    </party-uuid>
+                </responsible-party>
+                <!-- ISSO -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 18</xsl:comment>
+                <responsible-party
+                    role-id="information-system-security-officer">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$ISSO-uuid" />
+                    </party-uuid>
+                </responsible-party>
+                <!-- AOPoC -->
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 19</xsl:comment>
+                <responsible-party
+                    role-id="authorizing-official-poc">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$AOPoC-uuid" />
+                    </party-uuid>
+                </responsible-party>
+
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 36</xsl:comment>
+                <responsible-party
+                    role-id="{$control-role}">
+                    <party-uuid>
+                        <xsl:value-of
+                            select="$irrr-uuid" />
+                    </party-uuid>
+                </responsible-party>
+
             </metadata>
             <import-profile
                 href="" />
@@ -171,11 +524,13 @@
                 </authorization-boundary>
             </system-characteristics>
             <system-implementation>
+                <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 36</xsl:comment>
                 <user
-                    uuid="">
-                    <xsl:attribute
-                        name="uuid"
-                        select="uuid:randomUUID()" />
+                    uuid="{$user-uuid}">
+                    <role-id>
+                        <xsl:value-of
+                            select="$control-role" />
+                    </role-id>
                 </user>
                 <component
                     type="validation"
@@ -244,6 +599,7 @@
                             select="$statuses[$w]" />
                         <prop
                             name="implementation-status"
+                            ns="https://fedramp.gov/ns/oscal"
                             value="{$status}">
                             <xsl:choose>
                                 <xsl:when
@@ -271,7 +627,6 @@
                                     </remarks>
                                 </xsl:when>
                             </xsl:choose>
-
                         </prop>
                         <xsl:if
                             test="$status = 'planned'">
@@ -280,6 +635,59 @@
                                 ns="https://fedramp.gov/ns/oscal"
                                 value="2021-09-22Z" />
                         </xsl:if>
+                        <xsl:comment>
+                            <xsl:choose>
+                                <xsl:when test="count(param) gt 2">
+                                    <xsl:text expand-text="true">There are {count(param)} control parameters</xsl:text>
+                                </xsl:when>
+                                <xsl:when test="count(param) eq 1">
+                                    <xsl:text expand-text="true">There is {count(param)} control parameter</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>There are no control parameters</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:comment>
+                        <xsl:for-each
+                            select="param">
+                            <set-parameter
+                                param-id="{@id}">
+                                <value>
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="label">
+                                            <xsl:value-of
+                                                select="normalize-space(label)" />
+                                        </xsl:when>
+                                        <xsl:when
+                                            test="
+                                                some $choice in select//choice
+                                                    satisfies $choice/insert">
+                                            <xsl:text>it's complicated by parameter inserts</xsl:text>
+                                        </xsl:when>
+                                        <xsl:when
+                                            test="select[@how-many]">
+                                            <xsl:text expand-text="true">{select/@how-many} of {string-join(select/choice[not(insert)],', ')}</xsl:text>
+                                        </xsl:when>
+                                        <xsl:when
+                                            test="select">
+                                            <xsl:text expand-text="true">one of {string-join(select/choice[not(insert)],' or ')}</xsl:text>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </value>
+                                <xsl:if
+                                    test="constraint">
+                                    <xsl:comment expand-text="true">Constraint: {normalize-space(constraint)}></xsl:comment>
+                                </xsl:if>
+                            </set-parameter>
+                        </xsl:for-each>
+                        <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 36</xsl:comment>
+                        <responsible-role
+                            role-id="{$control-role}" />
+                        <xsl:comment>
+                            <xsl:text>Required response points: </xsl:text>
+                            <xsl:value-of select="descendant::prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'response-point']/parent::part/@id[matches(., 'smt')]" separator=", " />
+                        </xsl:comment>
                         <xsl:apply-templates
                             select="part" />
                     </implemented-requirement>
@@ -431,52 +839,99 @@
     </xsl:template>
     <xsl:template
         match="part[@name = 'statement']">
+        <xsl:choose>
+            <xsl:when
+                test="prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'response-point']">
+                <xsl:element
+                    name="statement"
+                    namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                    <xsl:attribute
+                        name="statement-id"
+                        select="@id" />
+                    <xsl:attribute
+                        name="uuid"
+                        select="uuid:randomUUID()" />
+                    <xsl:element
+                        name="by-component"
+                        namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                        <xsl:attribute
+                            name="uuid"
+                            select="uuid:randomUUID()" />
+                        <xsl:attribute
+                            name="component-uuid"
+                            select="$component-uuid" />
+                        <xsl:element
+                            name="description"
+                            namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                            <xsl:element
+                                name="p"
+                                namespace="http://csrc.nist.gov/ns/oscal/1.0">This description is more than 20 characters in length</xsl:element>
+                        </xsl:element>
+                        <xsl:element
+                            name="remarks"
+                            namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                            <xsl:element
+                                name="p"
+                                namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                                <xsl:value-of
+                                    select="oscal:p" />
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+        </xsl:choose>
         <xsl:apply-templates
             select="part" />
     </xsl:template>
     <xsl:template
         match="part[@name = 'item']">
-        <xsl:element
-            name="statement"
-            namespace="http://csrc.nist.gov/ns/oscal/1.0">
-            <xsl:attribute
-                name="statement-id"
-                select="@id" />
-            <xsl:attribute
-                name="uuid"
-                select="uuid:randomUUID()" />
-            <xsl:element
-                name="by-component"
-                namespace="http://csrc.nist.gov/ns/oscal/1.0">
-                <xsl:attribute
-                    name="uuid"
-                    select="uuid:randomUUID()" />
-                <xsl:attribute
-                    name="component-uuid"
-                    select="$component-uuid" />
+        <xsl:choose>
+            <xsl:when
+                test="prop[@ns = 'https://fedramp.gov/ns/oscal' and @name = 'response-point']">
                 <xsl:element
-                    name="description"
+                    name="statement"
                     namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                    <xsl:attribute
+                        name="statement-id"
+                        select="@id" />
+                    <xsl:attribute
+                        name="uuid"
+                        select="uuid:randomUUID()" />
                     <xsl:element
-                        name="p"
-                        namespace="http://csrc.nist.gov/ns/oscal/1.0">This description is more than 20 characters in length</xsl:element>
-                </xsl:element>
-                <xsl:element
-                    name="remarks"
-                    namespace="http://csrc.nist.gov/ns/oscal/1.0">
-                    <xsl:element
-                        name="p"
+                        name="by-component"
                         namespace="http://csrc.nist.gov/ns/oscal/1.0">
-                        <xsl:value-of
-                            select="oscal:p" />
+                        <xsl:attribute
+                            name="uuid"
+                            select="uuid:randomUUID()" />
+                        <xsl:attribute
+                            name="component-uuid"
+                            select="$component-uuid" />
+                        <xsl:element
+                            name="description"
+                            namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                            <xsl:element
+                                name="p"
+                                namespace="http://csrc.nist.gov/ns/oscal/1.0">This description is more than 20 characters in length</xsl:element>
+                        </xsl:element>
+                        <xsl:element
+                            name="remarks"
+                            namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                            <xsl:element
+                                name="p"
+                                namespace="http://csrc.nist.gov/ns/oscal/1.0">
+                                <xsl:value-of
+                                    select="oscal:p" />
+                            </xsl:element>
+                        </xsl:element>
                     </xsl:element>
                 </xsl:element>
-            </xsl:element>
+            </xsl:when>
+        </xsl:choose>
 
-        </xsl:element>
         <xsl:apply-templates
             select="part" />
     </xsl:template>
     <xsl:template
-        match="part"> </xsl:template>
+        match="part" />
 </xsl:stylesheet>
