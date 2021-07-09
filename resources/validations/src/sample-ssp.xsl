@@ -527,10 +527,24 @@
                 <xsl:comment>See DRAFT Guide to OSCAL-based FedRAMP System Security Plans page 36</xsl:comment>
                 <user
                     uuid="{$user-uuid}">
+                    <prop
+                        name="type"
+                        value="internal" />
+                    <prop
+                        name="privilege-type"
+                        value="privileged" />
+                    <prop
+                        name="sensitivity"
+                        ns="https://fedramp.gov/ns/oscal"
+                        value="moderate" />
                     <role-id>
                         <xsl:value-of
                             select="$control-role" />
                     </role-id>
+                    <authorized-privilege>
+                        <title>title</title>
+                        <function-performed>function</function-performed>
+                    </authorized-privilege>
                 </user>
                 <component
                     type="validation"
