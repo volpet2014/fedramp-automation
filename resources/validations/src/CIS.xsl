@@ -58,27 +58,33 @@
             map {
                 'implemented': map {
                     'class': 'implementation-full',
-                    'symbol': '✓'
+                    'symbol': '✓',
+                    'phrase': 'fully implemented'
                 },
                 'unimplemented': map {
                     'class': 'unimplemented',
-                    'symbol': '⁇'
+                    'symbol': '⁇',
+                    'phrase': 'not implemented'
                 },
                 'partial': map {
                     'class': 'implementation-partial',
-                    'symbol': '◐'
+                    'symbol': '◐',
+                    'phrase': 'partially implemented'
                 },
                 'planned': map {
                     'class': 'implementation-planned',
-                    'symbol': '⏳'
+                    'symbol': '⏳',
+                    'phrase': 'planned but not yet implemented'
                 },
                 'alternative': map {
                     'class': 'implementation-alternative',
-                    'symbol': '➬'
+                    'symbol': '➬',
+                    'phrase': 'alternatively implemented'
                 },
                 'not-applicable': map {
                     'class': 'implementation-not-applicable',
-                    'symbol': 'NA'
+                    'symbol': 'NA',
+                    'phrase': 'considered inapplicable'
                 }
             }" />
 
@@ -319,14 +325,14 @@
                 <xsl:text> - </xsl:text>
                 <xsl:value-of
                     select="count(part[@name = 'statement']/descendant::prop[@name = 'response-point'])" />
-                <xsl:text> response points</xsl:text>
+                <xsl:text expand-text="true"> response point{if (count(part[@name = 'statement']/descendant::prop[@name = 'response-point']) gt 1) then 's' else ''}</xsl:text>
                 <xsl:choose>
                     <xsl:when
                         test="exists($ir)">
                         <xsl:text> </xsl:text>
                         <span
                             class="{$implementation-status($status)?class}"
-                            title="{$status} implentation">
+                            title="{$implementation-status($status)?phrase}">
                             <xsl:value-of
                                 select="$implementation-status($status)?symbol" />
                         </span>
@@ -335,7 +341,7 @@
                         <xsl:text> </xsl:text>
                         <span
                             class="{$implementation-status?unimplemented?class}"
-                            title="{$status} implentation">
+                            title="{$implementation-status($status)?phrase}">
                             <xsl:value-of
                                 select="$implementation-status?unimplemented?symbol" />
                         </span>
@@ -348,7 +354,7 @@
                     test="exists($ir) and $status ne 'implemented'">
                     <div
                         class="statement">
-                        <xsl:text>Control is not fully implemented.</xsl:text>
+                        <xsl:text expand-text="true">Control is not fully implemented ({$implementation-status($status)?phrase}).</xsl:text>
                         <div
                             class="statement">
                             <xsl:value-of
